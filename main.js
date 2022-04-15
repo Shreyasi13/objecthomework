@@ -25,6 +25,7 @@ objectDetector.detect(video,gotResult);
        document.getElementById("number_of_object").innerHTML = "Number of objects detected are:" + objects.length;
    }
        if (objects[i].label == finder){
+           speak()
         textSize(24)
         fill(r,g,b);
         percent= floor(objects[i].confidence *100);
@@ -33,6 +34,7 @@ objectDetector.detect(video,gotResult);
     stroke(r,g,b);
     rect(objects[i].x, objects[i].y, objects[i].width, objects[i].height);
        } 
+    }
 }
 function start(){
     objectDetector = ml5.objectDetector('cocossd', modelLoaded);
@@ -52,4 +54,14 @@ function gotResult(error,results){
     }
     console.log(results);
     objects= results;
+}
+function speak(){
+    var synth = window.speechSynthesis;
+
+    speak_data =  finder+"found";
+
+    var utter = new SpeechSynthesisUtterance(speak_data);
+
+  synth.speak(utter);
+
 }
